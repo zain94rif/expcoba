@@ -1,6 +1,7 @@
 require("dotenv").config();
 const schema = process.env.SCHEMA;
 const table = `${schema}.users`;
+const bcrypt = require("bcrypt");
 
 const getAllUsers = () => {
   const sql = `SELECT * FROM ${table}`;
@@ -8,8 +9,11 @@ const getAllUsers = () => {
 };
 
 const createNewUser = (body) => {
+  const salt = bcrypt.genSaltSync(10);
+  const pswd = bcrypt.hashSync(body.password, salt);
+
   const sql = `INSERT INTO ${table} (id, user_name, email, password, user_role)
-                  VALUES (nextval('${schema}.sq_user'), '${body.user_name}', '${body.email}', '${body.password}', '${body.user_role}')`;
+                  VALUES (nextval('${schema}.sq_user'), '${body.user_name}', '${body.email}', '${pswd}', '${body.user_role}')`;
   return sql;
 };
 
