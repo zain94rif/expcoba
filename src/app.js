@@ -11,9 +11,9 @@ app.use(express.json());
 app.use("/user", usersRoutes);
 
 app.get("/", (req, res) => {
-  db.query("SELECT * FROM expdb.users", (error, result) => {
-    res.send("ini halaman awal");
-  });
+  // db.query("SELECT * FROM mydb.users", (error, result) => {
+  res.send("ini halaman awal");
+  // });
 });
 
 app.listen(port, () => {

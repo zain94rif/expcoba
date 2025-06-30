@@ -12,8 +12,10 @@ const createNewUser = (body) => {
   const salt = bcrypt.genSaltSync(10);
   const pswd = bcrypt.hashSync(body.password, salt);
 
-  const sql = `INSERT INTO ${table} (id, user_name, email, password, user_role)
-                  VALUES (nextval('${schema}.sq_user'), '${body.user_name}', '${body.email}', '${pswd}', '${body.user_role}')`;
+  const sql = `INSERT INTO ${table} ( user_name, email, password, user_role)
+                  VALUES ('${body.user_name}', '${body.email}', '${pswd}', '${body.user_role}')`;
+  // console.log(sql);
+
   return sql;
 };
 
