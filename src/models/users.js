@@ -14,13 +14,14 @@ const createNewUser = (body) => {
 
   const sql = `INSERT INTO ${table} ( user_name, email, password, user_role)
                   VALUES ('${body.user_name}', '${body.email}', '${pswd}', '${body.user_role}')`;
-  // console.log(sql);
-
   return sql;
 };
 
 const updateUser = (body, id) => {
-  const sql = `UPDATE ${table} SET user_name='${body.user_name}', email='${body.email}', password='${body.password}', user_role='${body.user_role}'
+  const salt = bcrypt.genSaltSync(10);
+  const pswd = bcrypt.hashSync(body.password, salt);
+
+  const sql = `UPDATE ${table} SET user_name='${body.user_name}', email='${body.email}', password='${pswd}', user_role='${body.user_role}'
                   WHERE id=${id}`;
   return sql;
 };
