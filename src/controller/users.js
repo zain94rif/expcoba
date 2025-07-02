@@ -18,6 +18,7 @@ const createNewUser = (req, res) => {
 
   db.query(role.getRole("user"), (err, result) => {
     body.user_role = result.rows[0].role_id;
+
     db.query(sql.createNewUser(req.body), (err, result) => {
       const data = {
         user_name: req.body.user_name,
@@ -32,10 +33,9 @@ const createNewUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  console.log(req);
-
   db.query(role.getRole(req.body.user_role), (err, result) => {
     req.body.user_role = result.rows[0].role_id;
+
     db.query(sql.updateUser(req.body, req.params.id), (err, result) => {
       !err
         ? response(201, req.params, "Success update user", res)
