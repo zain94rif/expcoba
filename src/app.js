@@ -16,6 +16,7 @@ app.use("/role", rolesRoutes);
 
 app.get("/", (req, res) => {
   // db.query("SELECT * FROM mydb.users", (error, result) => {
+    // coba
   res.send("ini halaman awal");
   // });
 });
